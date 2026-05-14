@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MyBrixS Reader</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero card">
+      <div class="hero-copy">
+        <p class="eyebrow">MyBrixS MVP</p>
+        <h1>Smartphone refractometer reader</h1>
+        <p class="hero-text">
+          Capture a fruit-sample refractometer image. MyBrixS reads the blue-white boundary,
+          applies the validated non-linear scale calibration, and returns % Brix.
+        </p>
+      </div>
+      <div class="status-box">
+        <div class="status-pill" id="systemStatus">Checking system…</div>
+        <p class="status-caption" id="storageStatus">Cloud storage status pending.</p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card scan-card">
+        <h2>1. Set up scan</h2>
+
+        <div class="form-grid">
+          <label>
+            <span>Fruit type</span>
+            <input id="fruitType" type="text" value="pineapple" placeholder="e.g. pineapple">
+          </label>
+
+          <label>
+            <span>Batch ID</span>
+            <input id="batchId" type="text" placeholder="e.g. FarmA-Row3">
+          </label>
+
+          <label>
+            <span>Harvest-ready threshold (% Brix)</span>
+            <input id="threshold" type="number" step="0.2" value="12.0" min="0" max="32">
+          </label>
+        </div>
+
+        <label class="note-label">
+          <span>Optional note</span>
+          <textarea id="farmerNote" rows="2" placeholder="Any observation for this sample"></textarea>
+        </label>
+
+        <div class="upload-zone">
+          <input id="imageInput" type="file" accept="image/*" capture="environment">
+          <label for="imageInput" class="upload-label">
+            <strong>Choose or take refractometer image</strong>
+            <span>Phone photos are compressed in-browser before analysis.</span>
+          </label>
+        </div>
+
+        <div class="preview-wrap hidden" id="previewWrap">
+          <img id="previewImage" alt="Selected refractometer preview">
+        </div>
+
+        <div class="action-row">
+          <button id="scanButton" class="primary" disabled>Read Brix</button>
+          <button id="clearButton" class="ghost" type="button">Clear session</button>
+        </div>
+
+        <p class="microcopy">
+          Location is requested only to tag the reading. The scan still works if location access is declined.
+        </p>
+
+        <div id="errorBox" class="error-box hidden"></div>
+      </article>
+
+      <article class="card result-card" id="resultCard">
+        <h2>2. Latest reading</h2>
+
+        <div class="empty-state" id="emptyState">
+          No scan yet. Upload a refractometer image and press <strong>Read Brix</strong>.
+        </div>
+
+        <div class="result-body hidden" id="resultBody">
+          <div class="reading-row">
+            <div>
+              <div class="brix-number"><span id="brixValue">—</span><small>% Brix</small></div>
+              <div class="decision" id="harvestDecision">—</div>
+            </div>
+            <div class="meta-stack">
+              <span class="confidence-pill" id="confidencePill">—</span>
+              <span id="scanTime">—</span>
+              <span id="scanLocation">Location unavailable</span>
+            </div>
+          </div>
+
+          <div class="result-preview-wrap hidden" id="cloudImageWrap">
+            <img id="cloudImage" alt="Saved refractometer image">
+          </div>
+
+          <p class="reader-note" id="readerNote">—</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="card summary-card">
+      <div class="summary-head">
+        <h2>3. Current session summary</h2>
+        <p>This summary is for scans performed in this browser session.</p>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric">
+          <strong id="scanCount">0</strong>
+          <span>Scans</span>
+        </div>
+        <div class="metric">
+          <strong id="averageBrix">—</strong>
+          <span>Average Brix</span>
+        </div>
+        <div class="metric">
+          <strong id="minBrix">—</strong>
+          <span>Minimum</span>
+        </div>
+        <div class="metric">
+          <strong id="maxBrix">—</strong>
+          <span>Maximum</span>
+        </div>
+        <div class="metric">
+          <strong id="readyCount">0</strong>
+          <span>At/above threshold</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Fruit</th>
+              <th>Batch</th>
+              <th>Brix</th>
+              <th>Status</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody id="sessionTable">
+            <tr><td colspan="6" class="muted">No session readings yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
