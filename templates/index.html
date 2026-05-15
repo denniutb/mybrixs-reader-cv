@@ -3,29 +3,73 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MyBrixS Reader</title>
+  <title>MyBrixS Reader | Digital Brix Verification</title>
+  <meta name="description" content="MyBrixS digitises analogue refractometer readings into trusted, cloud-linked Brix records for fruit quality verification.">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <main class="app-shell">
-    <section class="hero card">
-      <div class="hero-copy">
-        <p class="eyebrow">MyBrixS MVP</p>
-        <h1>Smartphone refractometer reader</h1>
-        <p class="hero-text">
-          Capture a fruit-sample refractometer image. MyBrixS reads the blue-white boundary,
-          applies the validated non-linear scale calibration, and returns % Brix.
-        </p>
+    <section class="brand-bar card">
+      <div class="brand-lockup">
+        <img src="/mybrixs-logo.png" class="brand-logo" alt="MyBrixS logo">
+        <div class="brand-copy">
+          <span class="brand-name">MyBrixS Reader</span>
+          <span class="brand-subtitle">Digital Brix verification for fruit-quality decisions</span>
+        </div>
       </div>
+
       <div class="status-box">
         <div class="status-pill" id="systemStatus">Checking system…</div>
         <p class="status-caption" id="storageStatus">Cloud storage status pending.</p>
       </div>
     </section>
 
+    <section class="hero card">
+      <div class="hero-copy">
+        <p class="eyebrow">Trusted sweetness evidence</p>
+        <h1>Convert a refractometer photo into a traceable % Brix reading.</h1>
+        <p class="hero-text">
+          Capture the eyepiece image from an analogue refractometer. MyBrixS detects the blue-white boundary,
+          applies the validated non-linear scale calibration, and records the result for field-ready quality verification.
+        </p>
+
+        <div class="value-strip">
+          <div class="value-item">
+            <strong>Validated CV</strong>
+            <span>Non-linear refractometer reading</span>
+          </div>
+          <div class="value-item">
+            <strong>GPS tagged</strong>
+            <span>Location-aware scan record</span>
+          </div>
+          <div class="value-item">
+            <strong>Cloud linked</strong>
+            <span>Audit-ready image and reading</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-proof">
+        <div class="proof-card">
+          <span class="proof-label">Reading workflow</span>
+          <ol>
+            <li>Capture refractometer image</li>
+            <li>Read calibrated Brix value</li>
+            <li>Save a traceable quality record</li>
+          </ol>
+        </div>
+      </aside>
+    </section>
+
     <section class="grid">
       <article class="card scan-card">
-        <h2>1. Set up scan</h2>
+        <div class="section-head">
+          <div>
+            <p class="step-label">Step 1</p>
+            <h2>Capture and classify sample</h2>
+          </div>
+          <span class="section-chip">Field scan</span>
+        </div>
 
         <div class="form-grid">
           <label>
@@ -46,14 +90,15 @@
 
         <label class="note-label">
           <span>Optional note</span>
-          <textarea id="farmerNote" rows="2" placeholder="Any observation for this sample"></textarea>
+          <textarea id="farmerNote" rows="2" placeholder="Sampling note, orchard block, maturity cue, or remarks"></textarea>
         </label>
 
         <div class="upload-zone">
           <input id="imageInput" type="file" accept="image/*" capture="environment">
           <label for="imageInput" class="upload-label">
-            <strong>Choose or take refractometer image</strong>
-            <span>Phone photos are compressed in-browser before analysis.</span>
+            <span class="upload-kicker">Refractometer image</span>
+            <strong>Choose or take a refractometer photo</strong>
+            <span>Images are compressed in-browser before analysis for a faster field workflow.</span>
           </label>
         </div>
 
@@ -67,14 +112,20 @@
         </div>
 
         <p class="microcopy">
-          Location is requested only to tag the reading. The scan still works if location access is declined.
+          Location permission is used only to tag the quality record. The scan still works if location access is declined.
         </p>
 
         <div id="errorBox" class="error-box hidden"></div>
       </article>
 
       <article class="card result-card" id="resultCard">
-        <h2>2. Latest reading</h2>
+        <div class="section-head">
+          <div>
+            <p class="step-label">Step 2</p>
+            <h2>Verified reading</h2>
+          </div>
+          <span class="section-chip">Latest result</span>
+        </div>
 
         <div class="empty-state" id="emptyState">
           No scan yet. Upload a refractometer image and press <strong>Read Brix</strong>.
@@ -104,8 +155,11 @@
 
     <section class="card summary-card">
       <div class="summary-head">
-        <h2>3. Current session summary</h2>
-        <p>This summary is for scans performed in this browser session.</p>
+        <div>
+          <p class="step-label">Step 3</p>
+          <h2>Batch-quality session summary</h2>
+        </div>
+        <p>This session ledger summarises scans completed in the current browser.</p>
       </div>
 
       <div class="metric-grid">
@@ -149,6 +203,10 @@
         </table>
       </div>
     </section>
+
+    <footer class="footer-note">
+      <strong>MyBrixS</strong> — digitising analogue refractometer readings into field-ready sweetness evidence.
+    </footer>
   </main>
 
   <script src="/app.js"></script>
